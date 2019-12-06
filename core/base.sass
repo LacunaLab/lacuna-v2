@@ -1,0 +1,261 @@
+@mixin fill()
+	content: ""
+	display: block
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+
+	
+@function mono($l)
+	@return hsl(0,0%,$l)
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+	margin: 0
+	padding: 0
+	border: 0
+	font-size: 100%
+	font: inherit
+	vertical-align: baseline
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+	display: block
+
+em
+	font-style: italic
+
+ol, ul 
+	list-style: none
+
+blockquote, q
+	quotes: none
+
+blockquote:before, blockquote:after, q:before, q:after
+	content: ''
+	content: none
+
+table
+	border-collapse: collapse
+	border-spacing: 0
+
+	
+html 
+	font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
+	font-size: 16px
+	word-spacing: 1px
+	-ms-text-size-adjust: 100%
+	-webkit-text-size-adjust: 100%
+	-moz-osx-font-smoothing: grayscale
+	-webkit-font-smoothing: antialiased
+	box-sizing: border-box
+
+
+*,
+*:before,
+*:after 
+	box-sizing: border-box
+	margin: 0
+
+	
+
+.align-right
+	text-align: right
+.align-left
+	text-align: left
+.align-center
+	text-align: center
+
+.mb1
+	margin-bottom: 1em
+.mb2
+	margin-bottom: 2em
+.mb3
+	margin-bottom: 3em
+.mb4
+	margin-bottom: 4em
+.mt1
+	margin-top: 1em
+.mt2
+	margin-top: 2em
+.mt3
+	margin-top: 3em
+.mt4
+	margin-top: 4em
+.pb0
+	padding-bottom: 0em
+.pb1
+	padding-bottom: 1em
+.pb2
+	padding-bottom: 2em
+.pb3
+	padding-bottom: 3em
+.pb4
+	padding-bottom: 4em
+.pt0
+	padding-top: 0em
+.pt1
+	padding-top: 1em
+.pt2
+	padding-top: 2em
+.pt3
+	padding-top: 3em
+.pt4
+	padding-top: 4em
+.ml1
+	margin-left: 1em
+.ml2
+	margin-left: 2em
+.ml3
+	margin-left: 3em
+.ml4
+	margin-left: 4em
+.mr1
+	margin-right: 1em
+.mr2
+	margin-right: 2em
+.mr3
+	margin-right: 3em
+.mr4
+	margin-right: 4em
+.pl0
+	padding-left: 0em
+.pl1
+	padding-left: 1em
+.pl2
+	padding-left: 2em
+.pl3
+	padding-left: 3em
+.pl4
+	padding-left: 4em
+.pr0
+	padding-right: 0em
+.pr1
+	padding-right: 1em
+.pr2
+	padding-right: 2em
+.pr3
+	padding-right: 3em
+.pr4
+	padding-right: 4em
+
+.field
+	margin-bottom: 20px
+	&.disabled
+		opacity: 0.5
+	.errors 
+		text-transform: lowercase
+
+.button, button, input[type=submit]
+	padding: 10px 20px
+	display: inline-block
+	font-size: 16px
+	border: none
+	text-transform: lowercase
+	outline: 0
+	&:disabled
+		opacity: 0.5
+
+
+.visible
+	opacity: 1
+.invisible
+	opacity: 0
+
+.inline-block
+	display: inline-block
+.block
+	display: block
+.none
+	display: none
+.relative
+	position: relative
+.absolute
+	position: absolute
+	margin: 0 auto
+	display: block
+	left: 50%
+	width: 100%
+	z-index: 2
+	transform: translate(-50%, 0%)
+
+.textinput, .textarea
+	display: block
+	width: 100%
+	margin: 0
+	box-sizing: border-box
+	padding: 0
+	margin-top: -1px
+	input[type=text], textarea
+		background: transparent
+		box-sizing: border-box
+		border: 0
+		box-sizing: border-box
+		padding: 10px 10px
+		width: 100%
+		margin: 0
+		outline: 0
+		display: block
+		vertical-align: middle
+		&:invalid, &[aria-invalid=true]
+			// border-color: red!important
+			// color: red
+			&::placeholder
+				// color: red
+			// &+.errors
+			//   color: red
+		&:focus
+			box-shadow: 0 0 3px 0px white
+
+
+@media only screen and (max-width: 48em)
+	.mobile-hide
+		display: none!important
+	.mobile-invisible
+		opacity: 0!important
+@media only screen and (min-width: 48em)
+	.mobile-show
+		display: none!important
+	.mobile-visible
+		opacity: 1!important
+@media only screen and (max-width: 64em)
+	.tablet-hide
+		display: none!important
+	.tablet-invisible
+		opacity: 0!important
+@media only screen and (min-width: 64em)
+	.tablet-show
+		display: none!important
+	.tablet-visible
+		opacity: 1!important
+
+.tag
+	$radius: 0px
+	$off: 5px
+	$stripe: 3px
+	padding: 0em 1em
+	// font-size: $smallText
+	position: relative
+	display: inline-block
+	border-radius: $radius
+	transition: border-color 0.2s ease, color 0.2s ease
+	*, *:before, &:before
+		border-radius: $radius
+	&.drop
+		&:before
+			content: ""
+			box-sizing: border-box
+			@include fill()
+			border: 0px solid transparent
+			border-style: solid
+			border-right-width: $off
+			border-bottom-width: $off
+			left: $off
+			top: $off
+	&.outline
+		border: 1px solid white
+	&.underline
+		border-bottom: 1px solid white
+
+
+

@@ -1,0 +1,50 @@
+
+@import '~/core/base'
+@import './grid.css'
+@import './theme'
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro:400,400i,700,700i&display=swap');
+
+
+body 
+	font-family: 'Montserrat', sans-serif
+
+h1, h2, h3, h4, h5, h6 
+	font-weight: bold
+	font-size: 2em
+
+.header-push
+	height: 100px
+
+h1, h2, h3, h4, h5, h6, div, span, p, a
+	line-height: 1.5em
+
+
+*::selection
+	background: lighten($blueC,30)
+
+
+.textinput, .textarea
+	input[type=text], textarea
+		font-size: $baseText - 1
+
+.field
+	.errors 
+		font-size: $baseText - 2px
+
+#app
+	.row
+		margin-left: -$colPadding
+		margin-right: -$colPadding
+	.col
+		padding: 0em $colPadding
+			
+.wrapper
+	max-width: $maxWidth
+	padding-left: $pagePadding
+	padding-right: $pagePadding
+	margin: 0 auto
+	box-sizing: border-box
+
+
