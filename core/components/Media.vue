@@ -1,6 +1,6 @@
 <template lang="pug">
   .media.relative(v-bind:class="{video: is('video'), image: is('image') }")
-    video-player( v-if="is('video')" ref="video" :options="options.videoOptions" :file="file" )
+    //- video-player( v-if="is('video')" ref="video" :options="options.videoOptions" :file="file" )
     dynamic-image(  v-if="is('image')" ref="image" :file="file" )
     slot
 </template>
@@ -8,7 +8,7 @@
 <script>
 
 import Base from './Base.vue'
-import VideoPlayer from './VideoPlayer.vue'
+// import VideoPlayer from './VideoPlayer.vue'
 import DynamicImage from './DynamicImage.vue'
 
 
@@ -26,35 +26,37 @@ export default {
     options: {
       type: Object,
       required: false,
-      default: {
-        videoOptions: {
-          autoplay: false,
-          volume: 0,
-          loop: true,
-          posterSizeLimit: 1200,
-          vimeoColor: 'FFFFFF',
-          sizeRatio: '16:9',
-          showControls: true,
-          showCover: {
-            beforeLoad: true,
-            onPaused: false,
-            onSeek: false
-          }
-        },
-        imageOptions: {
-          low: {
-            size: 40,
-            quality: 'poor'
+      default: () => {
+        return {
+          videoOptions: {
+            autoplay: false,
+            volume: 0,
+            loop: true,
+            posterSizeLimit: 1200,
+            vimeoColor: 'FFFFFF',
+            sizeRatio: '16:9',
+            showControls: true,
+            showCover: {
+              beforeLoad: true,
+              onPaused: false,
+              onSeek: false
+            }
           },
-          high: {
-            size: 1200,
-            quality: 'good'
-          },
-          title: null,
-          effects: {
-            blur: 0,
-            gradient: {
-              active: true
+          imageOptions: {
+            low: {
+              size: 40,
+              quality: 'poor'
+            },
+            high: {
+              size: 1200,
+              quality: 'good'
+            },
+            title: null,
+            effects: {
+              blur: 0,
+              gradient: {
+                active: true
+              }
             }
           }
         }
@@ -63,7 +65,7 @@ export default {
   },
   components: {
     DynamicImage,
-    VideoPlayer
+    // VideoPlayer
   },
   data() {
     return {

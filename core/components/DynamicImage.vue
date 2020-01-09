@@ -1,13 +1,13 @@
 <template lang="pug">
-.image-wrapper( v-bind:class="classes" v-if="file" :style="{paddingTop: paddingTop}" )
+.image-wrapper( v-bind:class="classes" :style="{paddingTop: paddingTop}" )
 	svg.background( viewBox="0 0 10 10" preserveAspectRatio="none")
 		path(d='M 0 0 L 10 10 ' vector-effect="non-scaling-stroke" )
 		path(d='M 10 0 L 0 10 ' vector-effect="non-scaling-stroke" )
 
 	.inner( v-if="$slots.default" ): slot
-	.image.low( v-if="status >= 0" )
+	.image.low( v-if=" file && status >= 0" )
 		img( ref="low" :title="title" :alt="title"  @load="onLoadLow()" :src="lowUrl" v-bind:style="{filter: blur}" )
-	.image.high( v-if="status > 0" )
+	.image.high( v-if="file && status > 0" )
 		img( ref="high" :title="title" :alt="title" @load="onLoadHigh()" :src="highUrl" )
 </template>
 
@@ -37,24 +37,23 @@ export default {
 			return opts;
 		},
 		paddingTop() {
+
+			if (!this.file) return '100%';
 			
 			return `${ ( this.file.height / this.file.width ) * 100 }%`
 		},
 		blur() {
 			return `blur( ${this.opts.blur}px )`;
 		},
-		file() {
-			return this.$props.file;
-		},
 		title() {
 			if (!this.opts.title) return this.file.title;
 			return this.opts.title;
 		},
 		lowUrl() {
-			return `${window.project.site.urls.thumbnails}/${this.opts.low.size}/${this.opts.low.size}/contain/${this.opts.low.quality}/${this.file.filename}`;
+			return `${this.$store.state.site.thumbnails}/${this.opts.low.size}/${this.opts.low.size}/contain/${this.opts.low.quality}/${this.file.filename}`;
 		},
 		highUrl() {
-			return `${window.project.site.urls.thumbnails}/${this.opts.high.size}/${this.opts.high.size}/contain/${this.opts.high.quality}/${this.file.filename}`;
+			return `${this.$store.state.site.thumbnails}/${this.opts.high.size}/${this.opts.high.size}/contain/${this.opts.high.quality}/${this.file.filename}`;
 		}
 	},
 	data() {
@@ -111,7 +110,6 @@ export default {
 	props: {
 
 		file: {
-			type: Object,
 			required: true
 		},
 		options: {
@@ -123,7 +121,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '../base.sass'
+@import '../_utils'
 
 .image-wrapper
 	position: relative

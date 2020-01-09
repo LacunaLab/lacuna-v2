@@ -1,18 +1,15 @@
 <template lang="pug">
 
 	.select-wrapper
-		//- p {{arrow}}
-		chevron(
-			v-bind:size="height"
-		)
+		svg(xmlns='http://www.w3.org/2000/svg' viewBox='-5 -5 15 15' )
+			path.arrow(d='M 0 5 L 5 10 L 10 5' )
 		select(
 			v-validate="field.rules"
 			v-bind:data-vv-group="field.groupId"
-			v-on:change="validateGroup(field.group, field.value)"
 			v-model="field.value"
 			v-bind:rows="field.rows"
 			v-bind:id="field.fieldId"
-			v-bind:placeholder="field.label"
+			v-bind:placeholder="field.placeholder"
 			v-bind:disabled="disabled"
 		).select-input
 			option(
@@ -20,31 +17,25 @@
 				v-bind:id="i"
 				v-bind:value="option"
 			) {{option}}
-		input.text-input(
+		.textinput: input(
 			type="text"
-			v-model="val"
-			v-bind:name="field.label"
-			v-bind:placeholder="field.label" 
+			v-model="field.value"
+			v-bind:name="field.name"
+			v-bind:placeholder="field.placeholder" 
 			v-bind:disabled="disabled"
 			tab-index="-1"
 			
 		).select-box
-		errors(v-bind:errors="errors")
+		//- errors(v-bind:errors="errors")
 
 </template>
 <script>
 
-import Errors from './../Errors.vue'
+// import Errors from './../Errors.vue'
 
 export default {
 
 	mounted() {
-		var self = this;
-		this.$nextTick(function(){
-			bus.$emit('field-added', this);
-		});
-		this.val = this.$props.field.value;
-		this.height = this.$el.offsetHeight - 0;
 		// this.arrow = 
 	},
 	data() {
@@ -60,18 +51,31 @@ export default {
 		}
 	},
     methods: {
-      validateGroup(group, value) {
-      	bus.$emit('field-blurred', group);
-      	this.val = value;
-      }
     },
-	components: {Errors},
+	components: {
+		// Errors
+	},
 	props: ['field', 'disabled'],
 	name: 'select-input'
 }
 </script>
-<style lang="scss" scoped>
+<style lang="sass" scoped>
 
+@import '../../_utils'
 
+.select-wrapper
+	position: relative
+	svg
+		width: 1em
+		position: absolute
+		top: 0.5em
+		right: 1em
+		path
+			stroke: black
+			stroke-width: 1px
+			fill: none
+	select
+		opacity: 0
+		@include fill()
 
 </style>

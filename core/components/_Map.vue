@@ -1,37 +1,45 @@
 <template lang="pug">
   .map-wrapper
-    .map#map( ref="map" )
+    GMap(
+    ref="gMap"
+    :locations="gps"
+    :center="gps"
+    :options="options"
+    :zoom="zoom")
 
 </template>
 
 <script>
 
 import Base from './Base.vue'
-import GMap from 'google-maps'
-
 export default {
 
   name: 'Map',
   extends: Base,
   computed: {
+    parsedStyle() {
+      return JSON.parse( this.$props.styles );
+    },
+    options() {
+      return { disableDefaultUI: true, icon: 'https://previews.123rf.com/images/cobalt/cobalt1106/cobalt110600030/9823094-red-push-pin-isolated-vector-.jpg', fullscreenControl: false, styles: this.parsedStyle}
+    }
   },
   components: {
   },
   props: {
-
+    zoom: {
+      type: Number,
+      required: false,
+      default: 12
+    },
     gps: {
       type: Object,
       required: true
     },
     styles: {
-      type: Array,
+      type: String,
       required: false,
-      default: [{"featureType": "administrative","elementType": "labels.text.fill","stylers": [{"color": "#4c42fb"}]},{"featureType": "landscape","elementType": "all","stylers": [{"color": "#f2f2f2"}]},{"featureType": "poi","elementType": "all","stylers": [{"visibility": "off"},{"lightness": "-77"}]},{"featureType": "road","elementType": "all","stylers": [{"saturation": -100},{"lightness": 45}]},{"featureType": "road","elementType": "geometry.fill","stylers": [{"visibility": "on"}]},{"featureType": "road","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "road","elementType": "labels","stylers": [{"gamma": "0.00"}]},{"featureType": "road","elementType": "labels.text","stylers": [{"gamma": "0.00"},{"saturation": "-58"}]},{"featureType": "road","elementType": "labels.text.fill","stylers": [{"gamma": "0.00"},{"color": "#4c42fb"},{"lightness": "31"},{"visibility": "on"}]},{"featureType": "road","elementType": "labels.text.stroke","stylers": [{"color": "#ffffff"}]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.highway","elementType": "all","stylers": [{"visibility": "simplified"}]},{"featureType": "road.highway","elementType": "geometry.fill","stylers": [{"color": "#ffffff"},{"visibility": "off"}]},{"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"color": "#ffffff"},{"visibility": "on"}]},{"featureType": "road.highway","elementType": "labels.text.fill","stylers": [{"visibility": "off"},{"lightness": "-85"}]},{"featureType": "road.highway","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"}]},{"featureType": "road.highway","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.text.fill","stylers": [{"lightness": "100"},{"visibility": "off"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.icon","stylers": [{"lightness": "53"},{"visibility": "off"},{"color": "#4c42fb"}]},{"featureType": "road.arterial","elementType": "geometry.fill","stylers": [{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.local","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "transit","elementType": "all","stylers": [{"visibility": "off"}]},{"featureType": "transit","elementType": "geometry.fill","stylers": [{"visibility": "off"},{"lightness": "-59"}]},{"featureType": "transit","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "transit","elementType": "labels.text.fill","stylers": [{"lightness": "63"}]},{"featureType": "transit","elementType": "labels.text.stroke","stylers": [{"lightness": "27"}]},{"featureType": "transit.station","elementType": "geometry.stroke","stylers": [{"lightness": "-59"}]},{"featureType": "water","elementType": "all","stylers": [{"color": "#c5d4df"},{"visibility": "on"},{"lightness": "-25"},{"saturation": "5"},{"gamma": "4.56"}]},{"featureType": "water","elementType": "geometry.fill","stylers": [{"color": "#4c42fb"}]}]
-    },
-    zoom: {
-      type: Number,
-      required: false,
-      default: 14
+      default: '[{"featureType": "administrative","elementType": "labels.text.fill","stylers": [{"color": "#4c42fb"}]},{"featureType": "landscape","elementType": "all","stylers": [{"color": "#f2f2f2"}]},{"featureType": "poi","elementType": "all","stylers": [{"visibility": "off"},{"lightness": "-77"}]},{"featureType": "road","elementType": "all","stylers": [{"saturation": -100},{"lightness": 45}]},{"featureType": "road","elementType": "geometry.fill","stylers": [{"visibility": "on"}]},{"featureType": "road","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "road","elementType": "labels","stylers": [{"gamma": "0.00"}]},{"featureType": "road","elementType": "labels.text","stylers": [{"gamma": "0.00"},{"saturation": "-58"}]},{"featureType": "road","elementType": "labels.text.fill","stylers": [{"gamma": "0.00"},{"color": "#4c42fb"},{"lightness": "31"},{"visibility": "on"}]},{"featureType": "road","elementType": "labels.text.stroke","stylers": [{"color": "#ffffff"}]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.highway","elementType": "all","stylers": [{"visibility": "simplified"}]},{"featureType": "road.highway","elementType": "geometry.fill","stylers": [{"color": "#ffffff"},{"visibility": "off"}]},{"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"color": "#ffffff"},{"visibility": "on"}]},{"featureType": "road.highway","elementType": "labels.text.fill","stylers": [{"visibility": "off"},{"lightness": "-85"}]},{"featureType": "road.highway","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"}]},{"featureType": "road.highway","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.text.fill","stylers": [{"lightness": "100"},{"visibility": "off"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"}]},{"featureType": "road.highway.controlled_access","elementType": "labels.icon","stylers": [{"lightness": "53"},{"visibility": "off"},{"color": "#4c42fb"}]},{"featureType": "road.arterial","elementType": "geometry.fill","stylers": [{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "road.arterial","elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "road.local","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "transit","elementType": "all","stylers": [{"visibility": "off"}]},{"featureType": "transit","elementType": "geometry.fill","stylers": [{"visibility": "off"},{"lightness": "-59"}]},{"featureType": "transit","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{"featureType": "transit","elementType": "labels.text.fill","stylers": [{"lightness": "63"}]},{"featureType": "transit","elementType": "labels.text.stroke","stylers": [{"lightness": "27"}]},{"featureType": "transit.station","elementType": "geometry.stroke","stylers": [{"lightness": "-59"}]},{"featureType": "water","elementType": "all","stylers": [{"color": "#c5d4df"},{"visibility": "on"},{"lightness": "-25"},{"saturation": "5"},{"gamma": "4.56"}]},{"featureType": "water","elementType": "geometry.fill","stylers": [{"color": "#4c42fb"}]}]'
     }
   },
   data() {
@@ -41,32 +49,32 @@ export default {
     }
   },
   beforeDestroy() {
-    this.map.unbindAll();
-    this.map = null;
-    this.marker = null;
+    // this.map.unbindAll();
+    // this.map = null;
+    // this.marker = null;
   },
   mounted() {
 
-    const t = this;
-    GMap.KEY = 'AIzaSyAxmEYmHgWDbgAdWmoWmGEOxdbmyJiQMtc';
-    GMap.load( (google) => {
-      t.map = new google.maps.Map( t.$refs.map , {
-        center: t.$props.gps,
-        zoom: t.$props.zoom,
-        styles: t.$props.styles
-      });
+    // const t = this;
+    // GMap.KEY = 'AIzaSyAxmEYmHgWDbgAdWmoWmGEOxdbmyJiQMtc';
+    // GMap.load( (google) => {
+    //   t.map = new google.maps.Map( t.$refs.map , {
+    //     center: t.$props.gps,
+    //     zoom: t.$props.zoom,
+    //     styles: t.$props.styles
+    //   });
 
-      window.map = t.map;
+    //   window.map = t.map;
 
-      t.marker = new google.maps.Marker({
-          position: t.$props.gps,
-          icon: '/favicon.png',
-          title:"Hello World!"
-      });
+    //   t.marker = new google.maps.Marker({
+    //       position: t.$props.gps,
+    //       icon: '/favicon.png',
+    //       title:"Hello World!"
+    //   });
 
-      t.marker.setMap( t.map );
+    //   t.marker.setMap( t.map );
 
-    });
+    // });
   },
   methods: {
   }
@@ -74,14 +82,5 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../base'
-.map-wrapper, .map
-  @include fill()
-
-@media only screen and (max-width: 48em)
-  .map-wrapper
-    &:before
-      content: ""
-      @include fill()
-      z-index: 2
+@import '../_utils'
 </style>

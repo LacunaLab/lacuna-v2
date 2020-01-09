@@ -23,6 +23,10 @@ export default {
   		}
   	},
   	methods: {
+        linkify( url ) {
+          if (url.substring( 0, 4) !== 'http') return `http://${url}`;
+          return url;
+        },
         addClasses(list) {
           let classes = {};
           list.forEach( l => {

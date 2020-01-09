@@ -1,10 +1,11 @@
 <template lang='pug'>
 .form-wrapper
 	.form(v-if="!success" )
+		slot
 		field( :data="contact.name", :disabled="disabled" @click.native="updateKey" )
 		field( :data="contact.email", :disabled="disabled" @click.native="updateKey" )
 		field( :data="contact.message", :disabled="disabled" @click.native="updateKey" )
-		button( :disabled="disabled" @click="submitForm" ) send
+		button( :disabled="disabled" @click="submitForm" ) Send
 		.errors( v-html="error")
 	.success(v-if="success" v-html="success") {{success}}
 
@@ -42,7 +43,6 @@ export default {
 		  			placeholder: "Name",
 		  			name: "name",
 		  			value: "",
-		  			// rules: 'required'
 		  		},
 		  		email: {
 		  			type: "text",

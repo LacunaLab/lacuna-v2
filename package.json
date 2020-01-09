@@ -13,13 +13,21 @@
   "dependencies": {
     "@nuxtjs/svg": "^0.1.6",
     "axios": "^0.19.0",
+    "ks-vue-scrollmagic": "^1.0.2",
     "node-sass": "^4.13.0",
     "nuxt": "^2.0.0",
+    "nuxt-gmaps": "^1.1.7",
+    "nuxt-validate": "^1.0.1",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^8.0.0",
     "svg-inline-loader": "^0.8.0",
     "xmldom": "^0.1.27"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/moment": "^1.4.0"
+  },
+  "engines": {
+    "node": "12.x"
+  }
 }

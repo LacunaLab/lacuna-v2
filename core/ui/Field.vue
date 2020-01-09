@@ -39,7 +39,7 @@
 				:disabled="disabled"
 				v-if="coreFieldType === 'select'"
 			)
-		.errors(v-if=" errors.has(data.name) ") {{errors.first(data.name)}}
+		//- .errors(v-if=" errors.has(data.name) ") {{errors.first(data.name)}}
 
 
 </template>

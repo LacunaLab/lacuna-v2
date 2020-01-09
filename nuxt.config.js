@@ -23,21 +23,34 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/css/main.sass'
   ],
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [],
+  plugins: [{
+    src: '~/plugins/ksvuescrollmagic',
+    ssr: false
+  }],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    // Simple usage
+    '@nuxtjs/moment',
+
+    // With options
+    ['@nuxtjs/moment', { /* module options */ }]
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
+    ['nuxt-gmaps', {
+    key: 'AIzaSyAxmEYmHgWDbgAdWmoWmGEOxdbmyJiQMtc',
+    }],
+    ['nuxt-validate']
   ],
   /*
   ** Build configuration

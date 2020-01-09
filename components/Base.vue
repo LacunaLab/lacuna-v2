@@ -20,6 +20,9 @@ export default {
 			const keys = Object.keys(this.$route.params);
 			for (let i = 0; i < keys.length; i++) key += this.$route.params[keys[i]];
 			return this.$store.state.data[key];
+		},
+		members() {
+			return this.$store.state.data.members;
 		}
 	},
 	head () {
@@ -55,6 +58,24 @@ export default {
 		}
 	},
 	methods: {
+        linkify( url ) {
+        	if (!url) return "/";
+        	// if (url.length <== 0) return "/";
+			if (url.substring( 0, 4) !== 'http') return `http://${url}`;
+			return url;
+        },
+		shuffle(array) {
+			console.log('SHUFFLE...', array);
+			var i = array.length, j, temp;
+			if ( i == 0 ) return array;
+			while ( --i ) {
+				j = Math.floor( Math.random() * ( i + 1 ) );
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+			return array;
+		},
 		checkForIdentity() {
 			if (!this.$store.state.data.identity) {
 				console.warn('[base] no identity loaded');

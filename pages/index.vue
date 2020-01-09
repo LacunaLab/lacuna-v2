@@ -1,53 +1,63 @@
 <template lang="pug">
-.homepage
-	app-header( :identity="data.identity" )
-	.header-push
-	.homepage-intro.pb4: .wrapper
-		.dynamic Lacuna Lab is about {{dynamic.current}}
-		.introduction
-			.text( v-html="data.homepage.introduction" )
-			nuxt-link.button( to="/contact" ) Learn More
-			nuxt-link.button( to="/contact" ) Get In Touch
-	.homepage-events.pb4: .wrapper
-		.row
-			.col.col-xs-6
-				h2.mb2 Events
-			.col.col-xs-6.align-right
-				nuxt-link( to="/events" ) View All Events
-		.row.events
-			.col.col-xs-12.col-sm-4.event( v-for="event, i in events" v-bind:key="i" ) 
-				h3: nuxt-link( :to="`/events/${event.url}`") {{event.title}}
-				//- img( :src=" ev")
-				//- p {{event.cover}}
-				.short() {{event.short_description}}
+.app-wrapper
+	app-header.toggle-grow( :identity="data.identity" ref="appHeader" )
+	.homepage
+		.header-push
+		.homepage-intro.bb.pb4: .wrapper
+			.dynamic.f5.ptb2 Lacuna Lab is about {{dynamic.current}}
+			.introduction
+				.text.f3( v-html="data.homepage.introduction" )
+				.align-center.f2.mt4
+					a.button( :href="`mailto:${data.identity.email}`" title="Lacuna Lab Email Address" ) Get In Touch
+		.homepage-events.bb.ptb4: .wrapper
+			.row
+				.col.col-xs-6
+					h2.f5 Events
+				.col.col-xs-6.align-right
+					nuxt-link.button( to="/events" ) View All Events
+			.row.events
+				.col.col-xs-12.col-sm-4.event( v-for="event, i in events" v-bind:key="i" )
+					.date.f3.bold.mtb2
+						span.date {{ $moment(event.start_date).format('ddd D MMM') }}
+					h3.f4.mt1: nuxt-link( :to="`/events/${event.url}`") {{event.title}}
+					address.mtb1.italic: .location( v-for="l, i in event.location " v-bind:key="i" ) {{l.locations_id.title}}
+					.short() {{event.short_description}}
 
-	.homepage-members.pb4: .wrapper
-		.row
-			.col.col-xs-6
-				h2.mb2 Members
-			.col.col-xs-6.align-right
-				nuxt-link( to="/members" ) View Archive
-		.members
-			.member( v-for="m, i in members" v-bind:key="i" )
-				nuxt-link( :to="`/members/${m.url}`") {{m.first_name}} {{m.last_name}}
+		.homepage-members.bb.ptb4: .wrapper
+			.row
+				.col.col-xs-6
+					h2.f5 Members
+				.col.col-xs-6.align-right
+					nuxt-link.button( to="/members" ) View Archive
+			.members.mtb4
+				.member( v-for="m, i in members" v-bind:key="i" v-if="m.profile_type === 'member'" )
+					nuxt-link.relative.inline-block.brackets.mb2( :to="`/members/${m.url}`") {{m.first_name}} {{m.last_name}}
+		.homepage-map
+			google-map( :gps="data.identity.location" v-bind:styles="data.identity.map_style" )
 
 	app-footer( :identity="data.identity" )
 		
 </template>
 
 <script>
+
+import GoogleMap from '~/core/components/_Map.vue'
+import DynamicImage from '~/core/components/DynamicImage.vue'
 import Base from '~/components/Base.vue'
 import AppHeader from '~/components/_Header.vue'
 import AppFooter from '~/components/_Footer.vue'
 
 export default {
 	extends: Base,
+	components: {
+		AppHeader,
+		AppFooter,
+		DynamicImage,
+		GoogleMap
+	},
 	computed: {
 		events() {
 			return this.$store.state.data['events-homepage'];
-		},
-		members() {
-			return this.$store.state.data['members'];
 		}
 	},
 	data() {
@@ -64,10 +74,6 @@ export default {
 
 				}
 			}
-	},
-	components: {
-		AppHeader,
-		AppFooter
 	},
 	methods: {
 		shuffle(array) {
@@ -123,8 +129,49 @@ export default {
 		this.dynamic.idx = parseInt( Math.random() * dyn.length );
 		for (let i = 0; i < dyn.length; i++) this.dynamic.words.push( dyn[i].text );
 		this.shuffle( this.dynamic.words );
-	this.reset();
-	window.requestAnimationFrame(this.animate);
+		this.reset();
+		window.requestAnimationFrame(this.animate);
+
+
+
+
+
+			// let tl = new this.$gsap.TweenMax;
+
+			// tl.fromTo( 
+			// 	'.toggle-grow', 
+			// 	1, 
+			// 	{ 
+			// 		x: '0%', 
+			// 		y: '0%'
+			// 	}, 
+			// 	{ 
+			// 		x: '0%', 
+			// 		y: '100%'
+			// 	}
+			// );
+
+			const logoToggle = new this.$scrollmagic.Scene({
+				offset: 0,
+				triggerHook: 0,
+				reverse: true,
+				duration: '600px'
+			}).setTween( this.$gsap.TweenMax.fromTo( 
+				'.toggle-grow svg', 
+				1, 
+				{ 
+					scale: '3',
+					x: '0%', 
+					y: '300px'
+				}, 
+				{ 
+					scale: '1',
+					x: '0%', 
+					y: '0px'
+				}
+			) );
+
+			this.$ksvuescr.$emit('addScene', 'logoToggle', logoToggle);
 
 	}
 }
@@ -132,22 +179,26 @@ export default {
 
 <style lang="sass">
 
-@import './../layouts/theme'
+@import '@/assets/css/theme'
 
 .homepage
 	.homepage-intro
 		width: 100%
 		padding-top: 400px
+	.homepage-map
+		width: 100%
+		position: relative
+		min-height: 50vh
 	.dynamic
 		font-family: 'Anonymous Pro', monospace
-		font-size: 24px
-		font-weight: bolder
-		line-height: 32px
 		text-align: center
 	.introduction
 		width: $maxWidth/2
 		margin: 0 auto
-		font-size: 1.4em
-		font-weight: light
+	.members
+		display: flex
+		flex-wrap: wrap
+		.member
+			flex: 1 1 33.3333%
 
 </style>

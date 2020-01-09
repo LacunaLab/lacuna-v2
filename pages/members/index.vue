@@ -1,15 +1,51 @@
 <template lang="pug">
-	#members: .wrapper
-		h1 Members
-		.events-wrapper: .row
-			.event-unit.col.col-sm-12.col-md-4( v-for="member, i in data.members " v-bind:key="i"  itemscope itemtype="http://schema.org/Person" )
-				h2( itemprop="name" ): nuxt-link( v-bind:to="`/members/${member.url}`" itemprop="url" ) {{member.first_name}} {{member.last_name}}
-				//- .event-description( v-html="event.description"  itemprop="description" )
+.app-wrapper
+	app-header( :identity="data.identity" )
+	#members( 
+		itemscope 
+		itemtype="http://schema.org/Organization")
+		section.bb.ptb4
+			.wrapper: .row: .col.col-xs-12: h1.f5.mb1 Members
+			.events-wrapper.wrapper: .row
+				.event-unit.col.col-sm-12.col-md-4( 
+					v-for="m, i in members " 
+					v-if="m.profile_type === 'member'" 
+					v-bind:key="i"  
+					itemscope 
+					itemtype="http://schema.org/Person" 
+					itemprop="member" )
+					h2.normal( itemprop="name" ).mtb1: nuxt-link( v-bind:to="`/members/${m.url}`" itemprop="url" ) {{m.first_name}} {{m.last_name}}
+		section.bb.ptb4
+			.wrapper: .row: .col.col-xs-12: h1.f5.mb1 Alumni
+			.events-wrapper.wrapper: .row
+				.event-unit.col.col-sm-12.col-md-4( 
+					v-for="m, i in members " 
+					v-if="m.profile_type === 'alumni'" 
+					v-bind:key="i"  
+					itemscope 
+					itemtype="http://schema.org/Person" 
+					itemprop="member" )
+					h2.normal( itemprop="name" ).mtb1: nuxt-link( v-bind:to="`/members/${m.url}`" itemprop="url" ) {{m.first_name}} {{m.last_name}}
+		section.bb.ptb4
+			.wrapper: .row: .col.col-xs-12: h1.f5.mb1 Residencies
+			.events-wrapper.wrapper: .row
+				.event-unit.col.col-sm-12.col-md-4( 
+					v-for="m, i in members " 
+					v-if="m.profile_type === 'residency'" 
+					v-bind:key="i"  
+					itemscope 
+					itemtype="http://schema.org/Person" 
+					itemprop="member" )
+					h2.normal( itemprop="name" ).mtb1: nuxt-link( v-bind:to="`/members/${m.url}`" itemprop="url" ) {{m.first_name}} {{m.last_name}}
+	app-footer( :identity="data.identity" )
 </template>
 
 <script>
 
 import Base from '~/components/Base.vue'
+import AppHeader from '~/components/_Header.vue'
+import AppFooter from '~/components/_Footer.vue'
+import DynamicImage from '~/core/components/DynamicImage.vue'
 
 export default {
 	extends: Base,
@@ -22,6 +58,9 @@ export default {
 	methods: {
 	},
 	components: {
+		AppHeader,
+		AppFooter,
+		DynamicImage
 
 	},
 	mounted() {
