@@ -5,7 +5,7 @@
 		field( :data="contact.name", :disabled="disabled" @click.native="updateKey" )
 		field( :data="contact.email", :disabled="disabled" @click.native="updateKey" )
 		field( :data="contact.message", :disabled="disabled" @click.native="updateKey" )
-		button( :disabled="disabled" @click="submitForm" ) Send
+		button.button( :disabled="disabled" @click="submitForm" ) Send
 		.errors( v-html="error")
 	.success(v-if="success" v-html="success") {{success}}
 

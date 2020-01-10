@@ -11,6 +11,9 @@ export const state = () => ({
 		title: 'Lacuna Lab'
 	},
 	routes: {
+		'url': {
+			list: ['url', 'identity']
+		},
 		'communities': {
 			list: ['communities', 'identity']
 		},
@@ -40,6 +43,10 @@ export const state = () => ({
 		}
 	},
 	api: {
+		'url': {
+			url: 'https://autr.uber.space/lacuna/items/projects?filter[url][contains]=:url&fields=*,resources.directus_files_id.*',
+			type: 'item'
+		},
 		'communities': {
 			url: 'https://autr.uber.space/lacuna/items/communities',
 			type: 'list'
@@ -49,7 +56,7 @@ export const state = () => ({
 			type: 'item'
 		},
 		'events': {
-			url: 'https://autr.uber.space/lacuna/items/events?sort=-start_date&fields=*,cover.*,location.locations_id.*',
+			url: 'https://autr.uber.space/lacuna/items/events?sort=-start_date&fields=*,cover.*,location.locations_id.*,tags.event_tags_id.*',
 			type: 'list'
 		},
 		'events-homepage': {

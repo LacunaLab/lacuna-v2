@@ -19,6 +19,7 @@ body
 h1, h2, h3, h4, h5, h6 
 	font-weight: bold
 
+@import 'burgers'
 
 #app
 
@@ -36,7 +37,7 @@ h1, h2, h3, h4, h5, h6
 				@include fill()
 				z-index: 2
 			
-	.button, button, input[type=submit]
+	.button
 		padding: 10px 20px
 		display: inline-block
 		border: 1px solid mono(85)
@@ -55,12 +56,18 @@ h1, h2, h3, h4, h5, h6
 		z-index: 999
 		width: 100vw
 		background: white//linear-gradient( white 50%, transparent)
-		.header-link
+		.col
+			padding-bottom: 0
+		.header-link a
 			padding: 2em 0em
+			display: block
+			&.nuxt-link-active
+				color: $black
+				// font-weight: bold
 		.logo
 			position: absolute
 			left: 50%
-			top: 0.5em
+			top: 15px
 			transform: translate(-50%, 0%)
 			width: $logoSize
 			height: $logoSize
@@ -71,14 +78,63 @@ h1, h2, h3, h4, h5, h6
 			svg
 				width: 100%
 				height: 100%
+		@media only screen and (max-width: 48em)
+			min-height: 70px
+			transition: border-bottom-color 0.2s ease
+			.wrapper
+				height: 0px
+			.row
+				margin-top: 70px
+				padding-top: 1em
+				height: 100vh
+				display: block
+				position: relative
+				background: white
+				left: -9999px
+				opacity: 0
+				transition: opacity 0.4s ease, transform 0.4s ease
+				transform: translate(0px, 40px)
+			&.is-active
+				border-bottom-color: white
+				.row
+					left: 0px
+					opacity: 1
+					transform: translate(0px, 0px)
+			.logo
+				width: 50px
+				height: 50px
+				top: 10px
+			.hamburger
+				position: absolute
+				left: 10px
+				top: 5px
+				outline: none
+				transform: scale(0.8)
+				*, *:after, *:before
+					border-radius: 0px !important
+					background: mono(80)
+				.hamburger-box
+					background: transparent
+			.col
+				padding-bottom: 0
+				text-align: center
+			.header-link a
+				// font-size: 1.5em
+				// padding: 0
+
+
+
 	#header + * 
 		padding-top: $logoSize!important
 		min-height: 100vh
-		padding-bottom: $footerHeight
+		@media only screen and (min-width: 48em)
+			padding-bottom: $footerHeight
 	#footer
-		height: $footerHeight
-		position: absolute
-		bottom: 0
+		min-height: $footerHeight
+		background: white
+		@media only screen and (min-width: 48em)
+			position: absolute
+			bottom: 0
 		width: 100%
 
 	a, a:hover, a:active
@@ -108,6 +164,7 @@ h1, h2, h3, h4, h5, h6
 		margin-right: -$colPadding
 	.col
 		padding: 0em $colPadding
+		padding-bottom: $colPadding
 	.app-wrapper
 		position: relative
 	.wrapper

@@ -65,7 +65,6 @@ export default {
 			return url;
         },
 		shuffle(array) {
-			console.log('SHUFFLE...', array);
 			var i = array.length, j, temp;
 			if ( i == 0 ) return array;
 			while ( --i ) {

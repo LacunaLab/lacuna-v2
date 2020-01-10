@@ -2,11 +2,11 @@
 .app-wrapper
 	app-header( :identity="data.identity" )
 	#contact.bb: .wrapper
-		h1.f5.mt2.mb1 {{data.contact.title}}
 		.row
-			.col.col-xs-12.col-sm-6
+			.col.col-xs-0.col-sm-3
 				.about-us.html( v-html="data.contact.text" )
 			.col.col-xs-12.col-sm-6
+				h1.f5.mt2.mb1 {{data.contact.title}}
 				contact-form
 					field( :data="dropdown" )
 				

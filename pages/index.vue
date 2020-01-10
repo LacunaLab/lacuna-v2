@@ -8,7 +8,7 @@
 			.introduction
 				.text.f3( v-html="data.homepage.introduction" )
 				.align-center.f2.mt4
-					a.button( :href="`mailto:${data.identity.email}`" title="Lacuna Lab Email Address" ) Get In Touch
+					a.button( :href="`mailto:${data.identity.default_email}`" title="Lacuna Lab Email Address" ) Get In Touch
 		.homepage-events.bb.ptb4: .wrapper
 			.row
 				.col.col-xs-6
@@ -19,6 +19,7 @@
 				.col.col-xs-12.col-sm-4.event( v-for="event, i in events" v-bind:key="i" )
 					.date.f3.bold.mtb2
 						span.date {{ $moment(event.start_date).format('ddd D MMM') }}
+					nuxt-link( :to="`/events/${event.url}`"): dynamic-image( :file="event.cover" )
 					h3.f4.mt1: nuxt-link( :to="`/events/${event.url}`") {{event.title}}
 					address.mtb1.italic: .location( v-for="l, i in event.location " v-bind:key="i" ) {{l.locations_id.title}}
 					.short() {{event.short_description}}
@@ -29,7 +30,7 @@
 					h2.f5 Members
 				.col.col-xs-6.align-right
 					nuxt-link.button( to="/members" ) View Archive
-			.members.mtb4
+			.members.mt2
 				.member( v-for="m, i in members" v-bind:key="i" v-if="m.profile_type === 'member'" )
 					nuxt-link.relative.inline-block.brackets.mb2( :to="`/members/${m.url}`") {{m.first_name}} {{m.last_name}}
 		.homepage-map
@@ -134,35 +135,18 @@ export default {
 
 
 
-
-
-			// let tl = new this.$gsap.TweenMax;
-
-			// tl.fromTo( 
-			// 	'.toggle-grow', 
-			// 	1, 
-			// 	{ 
-			// 		x: '0%', 
-			// 		y: '0%'
-			// 	}, 
-			// 	{ 
-			// 		x: '0%', 
-			// 		y: '100%'
-			// 	}
-			// );
-
 			const logoToggle = new this.$scrollmagic.Scene({
 				offset: 0,
 				triggerHook: 0,
 				reverse: true,
-				duration: '600px'
+				duration: '300px'
 			}).setTween( this.$gsap.TweenMax.fromTo( 
 				'.toggle-grow svg', 
 				1, 
 				{ 
 					scale: '3',
 					x: '0%', 
-					y: '300px'
+					y: '200px'
 				}, 
 				{ 
 					scale: '1',
@@ -184,7 +168,7 @@ export default {
 .homepage
 	.homepage-intro
 		width: 100%
-		padding-top: 400px
+		padding-top: 200px
 	.homepage-map
 		width: 100%
 		position: relative
@@ -193,12 +177,13 @@ export default {
 		font-family: 'Anonymous Pro', monospace
 		text-align: center
 	.introduction
-		width: $maxWidth/2
+		max-width: $maxWidth/2
 		margin: 0 auto
 	.members
-		display: flex
-		flex-wrap: wrap
-		.member
-			flex: 1 1 33.3333%
+		@media only screen and (min-width: 48em)
+			display: flex
+			flex-wrap: wrap
+			.member
+				flex: 1 1 33.3333%
 
 </style>

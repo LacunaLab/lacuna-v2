@@ -3,13 +3,16 @@
 	app-header( :identity="data.identity" )
 	#about.bb
 		.wrapper.ptb4
+			h1.f5.mb1 About Lacuna Lab
 			.row
 				.col.col-xs-12.col-sm-6
-					h1.f5.mb1 About Lacuna Lab
 					.about-us.html( v-html="data.about.about" )
 				.col.col-xs-12.col-sm-6
-					gallery( :files="data.about.gallery.photos" )
-					//- .image.inline-block( v-for="img, i in data.about.gallery.photos" :style="{width: `${100/data.about.gallery.photos.length}%`}" ): dynamic-image( :file="img.directus_files_id" )
+					//- h2.f3.mb1 Find Us
+					p( style="white-space: pre" ) {{data.identity.address}}
+					p.mt1: a(:href="`tel:${data.identity.telephone}`" title="Lacuna Lab Telephone Number") {{data.identity.telephone}}
+					p.mt1: a.button(:href="`mailto:${data.identity.default_email}`" title="Lacuna Lab Email Address") {{data.identity.default_email}}
+
 		.relative( style="min-height: 50vh")
 			google-map( :gps="data.identity.location" v-bind:styles="data.identity.map_style" )
 		

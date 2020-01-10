@@ -1,9 +1,12 @@
 <template lang="pug">
-#header.bb.mobile-hide: .wrapper
+#header.bb( v-bind:class="{'is-active': active}" ): .wrapper
 	h1.logo
 		nuxt-link( to="/" ) 
-			span Lacuna Lab 
+			span Lacuna Lab
 			lacuna-logo
+	button.hamburger.hamburger--squeeze.mobile-show(type='button' v-bind:class="{'is-active': active}" @click="active = !active")
+		span.hamburger-box
+		span.hamburger-inner
 	.row
 		.col.col-xs-12.col-sm-3: .header-link.uppercase-link: nuxt-link( to="/events" ) Events
 		.col.col-xs-12.col-sm-3: .header-link.uppercase-link: nuxt-link( to="/members" ) Members
@@ -15,12 +18,21 @@
 <script>
 import LacunaLogo from "~/assets/logo.svg?inline";
 export default {
-  props: ['identity'],
-  components: {
-  	LacunaLogo
-  }
+	props: ['identity'],
+	components: {
+		LacunaLogo
+	},
+	computed: {
+	},
+	data() {
+		return {
+			active: false
+		}
+	}
 }
 </script>
 <style lang="sass">
+
+#app #header 
 
 </style>

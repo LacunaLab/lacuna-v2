@@ -6,7 +6,10 @@
     :center="gps"
     :options="options"
     :zoom="zoom")
-
+      GMapMarker(
+        :position="gps"
+        :options="options.icon"
+         )
 </template>
 
 <script>
@@ -21,7 +24,14 @@ export default {
       return JSON.parse( this.$props.styles );
     },
     options() {
-      return { disableDefaultUI: true, icon: 'https://previews.123rf.com/images/cobalt/cobalt1106/cobalt110600030/9823094-red-push-pin-isolated-vector-.jpg', fullscreenControl: false, styles: this.parsedStyle}
+      return { 
+        disableDefaultUI: true, 
+        icon: {
+          icon: 'https://autr.uber.space/uploads/_/originals/1beebc96-5717-5622-b77e-ab4e64fca34b.svg'
+        }, 
+        fullscreenControl: false, 
+        styles: this.parsedStyle
+      }
     }
   },
   components: {
@@ -49,32 +59,9 @@ export default {
     }
   },
   beforeDestroy() {
-    // this.map.unbindAll();
-    // this.map = null;
-    // this.marker = null;
   },
   mounted() {
 
-    // const t = this;
-    // GMap.KEY = 'AIzaSyAxmEYmHgWDbgAdWmoWmGEOxdbmyJiQMtc';
-    // GMap.load( (google) => {
-    //   t.map = new google.maps.Map( t.$refs.map , {
-    //     center: t.$props.gps,
-    //     zoom: t.$props.zoom,
-    //     styles: t.$props.styles
-    //   });
-
-    //   window.map = t.map;
-
-    //   t.marker = new google.maps.Marker({
-    //       position: t.$props.gps,
-    //       icon: '/favicon.png',
-    //       title:"Hello World!"
-    //   });
-
-    //   t.marker.setMap( t.map );
-
-    // });
   },
   methods: {
   }
@@ -83,4 +70,6 @@ export default {
 
 <style lang="sass">
 @import '../_utils'
+.map-wrapper
+  overflow: hidden
 </style>

@@ -1,13 +1,13 @@
 <template lang="pug">
-.image-wrapper( v-bind:class="classes" :style="{paddingTop: paddingTop}" )
+span.image-wrapper( v-bind:class="classes" :style="{paddingTop: paddingTop}" )
 	svg.background( viewBox="0 0 10 10" preserveAspectRatio="none")
 		path(d='M 0 0 L 10 10 ' vector-effect="non-scaling-stroke" )
 		path(d='M 10 0 L 0 10 ' vector-effect="non-scaling-stroke" )
 
-	.inner( v-if="$slots.default" ): slot
-	.image.low( v-if=" file && status >= 0" )
+	span.inner( v-if="$slots.default" ): slot
+	span.image.low( v-if=" file && status >= 0" )
 		img( ref="low" :title="title" :alt="title"  @load="onLoadLow()" :src="lowUrl" v-bind:style="{filter: blur}" )
-	.image.high( v-if="file && status > 0" )
+	span.image.high( v-if="file && status > 0" )
 		img( ref="high" :title="title" :alt="title" @load="onLoadHigh()" :src="highUrl" )
 </template>
 
@@ -124,6 +124,7 @@ export default {
 @import '../_utils'
 
 .image-wrapper
+	display: block
 	position: relative
 	// *
 	// 	padding: 0
