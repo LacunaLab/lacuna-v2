@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "alias": "lacuna.autr.tv",
   "builds": [
     {
       "src": "nuxt.config.js",

@@ -5,10 +5,12 @@
 		.header-push
 		.homepage-intro.bb.pb4: .wrapper
 			.dynamic.f5.ptb2 Lacuna Lab is about {{dynamic.current}}
-			.introduction
-				.text.f3( v-html="data.homepage.introduction" )
-				.align-center.f2.mt4
-					a.button( :href="`mailto:${data.identity.default_email}`" title="Lacuna Lab Email Address" ) Get In Touch
+			.row
+				.col.col-xs-0.mobile-hide.col-sm-3
+				.col.col-xs-12.col-sm-6
+					.text.f3( v-html="data.homepage.introduction" )
+					.align-center.f2.mt4
+						a.button( :href="`mailto:${data.identity.default_email}`" title="Lacuna Lab Email Address" ) Get In Touch
 		.homepage-events.bb.ptb4: .wrapper
 			.row
 				.col.col-xs-6
