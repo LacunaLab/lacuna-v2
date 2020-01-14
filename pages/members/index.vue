@@ -7,7 +7,7 @@
 		section.ptb4
 			.wrapper: .row: .col.col-xs-12: h1.f5.mb1 Members
 			.events-wrapper.wrapper: .row
-				.event-unit.col.col-sm-12.col-md-4( 
+				.event-unit.col.col-sm-12.col-md-3( 
 					v-for="m, i in members " 
 					v-if="m.profile_type === 'member'" 
 					v-bind:key="i"  
@@ -58,6 +58,9 @@ export default {
 	computed: {
 	},
 	methods: {
+		getMetaTitle() {
+			return `Members | ${this.$store.state.meta.title}`;
+		},
 	},
 	components: {
 		AppHeader,

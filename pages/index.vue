@@ -18,7 +18,7 @@
 			.row.events
 				.col.col-xs-12.col-sm-4.event( v-for="event, i in events" v-bind:key="i" )
 					.date.f3.bold.mtb2
-						span.date {{ $moment(event.start_date).format('ddd D MMM') }}
+						span.date {{ $moment(event.start_date).format("ddd D MMM Y") }}
 					nuxt-link( :to="`/events/${event.url}`"): dynamic-image( :file="event.cover" )
 					h3.f4.mt1: nuxt-link( :to="`/events/${event.url}`") {{event.title}}
 					address.mtb1.italic: .location( v-for="l, i in event.location " v-bind:key="i" ) {{l.locations_id.title}}
@@ -77,6 +77,10 @@ export default {
 			}
 	},
 	methods: {
+
+		getMetaTitle() {
+			return `Collaborative co-creation space in Kreuzberg, Berlin | ${this.$store.state.meta.title}`;
+		},
 		shuffle(array) {
 			array.sort(() => Math.random() - 0.5);
 		},
@@ -184,6 +188,6 @@ export default {
 			display: flex
 			flex-wrap: wrap
 			.member
-				flex: 1 1 33.3333%
+				flex: 1 1 25%
 
 </style>

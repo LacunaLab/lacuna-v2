@@ -44,51 +44,51 @@ export const state = () => ({
 	},
 	api: {
 		'url': {
-			url: 'https://autr.uber.space/lacuna/items/projects?filter[url][contains]=:url&fields=*,resources.directus_files_id.*',
+			url: 'https://api.lacunalab.org/_/items/projects?filter[url][contains]=:url&fields=*,resources.directus_files_id.*',
 			type: 'item'
 		},
 		'communities': {
-			url: 'https://autr.uber.space/lacuna/items/communities',
+			url: 'https://api.lacunalab.org/_/items/communities',
 			type: 'list'
 		},
 		'communities-url': {
-			url: 'https://autr.uber.space/lacuna/items/communities?filter[url]=:url',
+			url: 'https://api.lacunalab.org/_/items/communities?filter[url]=:url',
 			type: 'item'
 		},
 		'events': {
-			url: 'https://autr.uber.space/lacuna/items/events?sort=-start_date&fields=*,cover.*,location.locations_id.*,tags.event_tags_id.*',
+			url: 'https://api.lacunalab.org/_/items/events?sort=-start_date&fields=*,cover.*,location.locations_id.*,tags.event_tags_id.*',
 			type: 'list'
 		},
 		'events-homepage': {
-			url: 'https://autr.uber.space/lacuna/items/events?limit=3&sort=-start_date&fields=*,cover.*,location.locations_id.*',
+			url: 'https://api.lacunalab.org/_/items/events?limit=3&sort=-start_date&fields=*,cover.*,location.locations_id.*',
 			type: 'list'
 		},
 		'events-url': {
-			url: 'https://autr.uber.space/lacuna/items/events?filter[url]=:url&fields=*,location.locations_id.*,cover.*,tags.event_tags_id.*,internal_participants.directus_users_id.*',
+			url: 'https://api.lacunalab.org/_/items/events?filter[url]=:url&fields=*,location.locations_id.*,cover.*,tags.event_tags_id.*,internal_participants.directus_users_id.*',
 			type: 'item'
 		},
 		'members': {
-			url: 'https://autr.uber.space/lacuna/users?fields=*,avatar.*&sort=?',
+			url: 'https://api.lacunalab.org/_/users?fields=*,avatar.*&sort=?',
 			type: 'list'
 		},
 		'members-url': {
-			url: 'https://autr.uber.space/lacuna/users?filter[url]=:url&fields=*,avatar.*',
+			url: 'https://api.lacunalab.org/_/users?filter[url]=:url&fields=*,avatar.*',
 			type: 'item'
 		},
 		'homepage': {
-			url: 'https://autr.uber.space/lacuna/items/homepage',
+			url: 'https://api.lacunalab.org/_/items/homepage',
 			type: 'page'
 		},
 		'identity': {
-			url: 'https://autr.uber.space/lacuna/items/identity?fields=*,default_image.data.full_url',
+			url: 'https://api.lacunalab.org/_/items/identity?fields=*,default_image.data.full_url',
 			type: 'page'
 		},
 		'about': {
-			url: 'https://autr.uber.space/lacuna/items/about?fields=*,gallery.photos.directus_files_id.*',
+			url: 'https://api.lacunalab.org/_/items/about?fields=*,gallery.photos.directus_files_id.*',
 			type: 'page'
 		},
 		'contact': {
-			url: 'https://autr.uber.space/lacuna/items/contact',
+			url: 'https://api.lacunalab.org/_/items/contact',
 			type: 'page'
 		}
 	},

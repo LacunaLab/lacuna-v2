@@ -5,7 +5,7 @@
 			v-model="field.value"
 			v-bind:id="field.fieldId"
 			v-bind:name="field.name"
-			v-bind:rows=" (field.rules) ? field.rules.rows : 4"
+			v-bind:rows=" (field.rules) ? field.rules.rows : 8"
 			v-bind:disabled="disabled"
 			v-bind:placeholder="field.placeholder"
 		)
@@ -35,6 +35,6 @@ export default {
 <style lang="scss" scoped>
 textarea {
 	resize: none;
-	height: 120px;
+	min-height: 120px;
 }
 </style>

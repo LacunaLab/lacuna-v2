@@ -30,6 +30,24 @@ export default {
 		FormAuto,
 		Field
 	},
+	props: {
+
+	    beforeSend: {
+	      type: Function,
+	      required: false,
+	      default: (obj) => {
+	      	return obj;
+	      }
+	    },
+	    href: {
+	      type: String,
+	      required: true
+	    },
+	    to: {
+	      type: String,
+	      required: true
+	    }
+	},
 	computed: {
 	},
 	data() {
@@ -85,16 +103,18 @@ export default {
 					this.disabled = true;
 
 					const full = `${this.contact.name.value} <${this.contact.email.value}>`;
-					const url = `${window.project.site.urls.utility}/send`;
+					const url = `${this.$props.href}/send`;
 					const currentUrl = window.location.href;
-					const data = {
+					let data = {
 						name: this.contact.name.value,
 						from: this.contact.email.value,
 						subject: `New [${currentUrl}] contact from ${full}`,
 						message: this.contact.message.value,
-						to: window.project.site.email,
+						to: this.$props.to,
 						key: this.makeKey()
 					};
+
+					data = this.$props.beforeSend(data);
 
 					console.log(url, data);
 
@@ -105,7 +125,7 @@ export default {
 		},
 		onResponse(res) {
 			console.log('RES res', res);
-			this.success = `Thank you. Message was sent to <strong>${window.project.site.email}</strong></br >We will be in contact shortly!`;
+			this.success = `Thank you. Message was sent to <strong>${this.$props.to}</strong></br >We will be in contact shortly!`;
 			this.disabled = false;
 		},
 		onError(err) {

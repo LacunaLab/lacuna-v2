@@ -35,6 +35,9 @@ export default {
   computed: {
   },
   methods: {
+    getMetaTitle() {
+      return `${this.item.first_name} ${this.item.last_name} | ${this.$store.state.meta.title}`;
+    },
   },
   components: {
     AppHeader,

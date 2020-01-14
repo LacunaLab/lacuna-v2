@@ -49,6 +49,9 @@ export default {
   computed: {
   },
   methods: {
+      getMetaTitle() {
+        return `${this.item.title}, ${this.$moment(this.item.start_date).format('DD/MM/YY')} | ${this.$store.state.meta.title}`;
+      }
   },
   components: {
     AppHeader,
