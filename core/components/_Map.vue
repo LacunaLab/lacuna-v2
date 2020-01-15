@@ -1,6 +1,8 @@
 <template lang="pug">
   .map-wrapper
+    img( style="display:none" src="~/assets/marker.svg" ref="marker" )
     GMap(
+    v-if="ready"
     ref="gMap"
     :locations="gps"
     :center="gps"
@@ -27,7 +29,7 @@ export default {
       return { 
         disableDefaultUI: true, 
         icon: {
-          icon: 'https://autr.uber.space/uploads/_/originals/1beebc96-5717-5622-b77e-ab4e64fca34b.svg'
+          icon: this.$refs.marker.src
         }, 
         fullscreenControl: false, 
         styles: this.parsedStyle
@@ -54,14 +56,16 @@ export default {
   },
   data() {
     return {
-      map: null,
-      marker: null
+      ready: false
     }
   },
   beforeDestroy() {
   },
   mounted() {
 
+    this.$nextTick( () => {
+      this.ready = true;
+    });
   },
   methods: {
   }

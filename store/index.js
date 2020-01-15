@@ -3,7 +3,7 @@ export const state = () => ({
 
 	site: {
 		email: 'gilbert@lacunalab.org',
-		thumbnails: 'https://autr.uber.space/thumbnail/lacuna',
+		thumbnails: 'https://api.lacunalab.org/thumbnail/_',
 
 	},
 
@@ -40,6 +40,9 @@ export const state = () => ({
 		},
 		'contact': {
 			list: ['contact', 'identity']
+		},
+		'404': {
+			list: ['identity']
 		}
 	},
 	api: {

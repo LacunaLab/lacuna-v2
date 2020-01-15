@@ -96,11 +96,14 @@ export default {
 		getMetaKeywords() {
 			if (!this.checkForIdentity()) return;
 			return this.$store.state.data.identity.keywords;
+		},
+		handleError(err) {
+			console.log("error", err);
 		}
 	},
 	async asyncData ( { store, route, params, query, env, isDev, isHMR, redirect, error } ) {
 
-		console.log('[store] route name', route.name)
+		console.log('[store] route name', route.name);
 
 		if (!store.state.routes) {
 			console.warn('[store] store has no API routes defined');
@@ -160,7 +163,13 @@ export default {
 							store.commit('set', {key: dataKey, data: data} );
 
 							if (store.state.data[dataKey] === undefined) {
-								reject('could not load API data into store');
+								const msg = 'could not load API data into store';
+								store.commit('set', {key: dataKey, data: { error: true, msg: msg }} );
+								reject(msg);
+							} else if (!data) {
+								const msg = 'no data was found for this';
+								store.commit('set', {key: dataKey, data: { error: true, msg: msg }} );
+								reject(msg);
 							} else {
 								resolve(store.state.data[dataKey]);
 							}
@@ -182,7 +191,8 @@ export default {
 		return Promise.all( promises ).then( () => {
 
 		}).catch( err => {
-			console.log('ERRRR');
+			console.log(err);
+			// store.commit('set', {key: dataKey, data: err} );
 		});
 	},
 	components: {

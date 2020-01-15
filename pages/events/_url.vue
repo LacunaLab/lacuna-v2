@@ -1,7 +1,7 @@
 <template lang="pug">
 .app-wrapper
-  app-header( :identity="data.identity" )
-  #event.bb( itemscope itemtype="http://schema.org/Event" ): .wrapper.pt4
+  app-header( :identity="data.identity" v-if="!item.error" )
+  #event.bb( itemscope itemtype="http://schema.org/Event" v-if="!item.error"): .wrapper.pt4
     .row
       .col.col-xs-12.col-sm-4
         h1.title.f5( itemprop="name" ) {{item.title}}
@@ -27,7 +27,7 @@
       .col.col-xs-12.col-sm-8
         dynamic-image.mt1( :file="item.cover" )
         .description.mt2.mb2.html( v-html="item.description" )
-  app-footer( :identity="data.identity" )
+  app-footer( :identity="data.identity" v-if="!item.error" )
 
 
     
@@ -39,6 +39,7 @@ import DynamicImage from '~/core/components/DynamicImage.vue'
 import Base from '~/components/Base.vue'
 import AppHeader from '~/components/_Header.vue'
 import AppFooter from '~/components/_Footer.vue'
+import axios from 'axios';
 
 export default {
   extends: Base,
@@ -50,6 +51,7 @@ export default {
   },
   methods: {
       getMetaTitle() {
+        if (!this.item.error) return ` ${this.$store.state.meta.title}`;
         return `${this.item.title}, ${this.$moment(this.item.start_date).format('DD/MM/YY')} | ${this.$store.state.meta.title}`;
       }
   },
@@ -59,8 +61,28 @@ export default {
     DynamicImage
 
   },
+  beforeMount() {
+    if ( this.item.error ) {
+      let url = this.$route.params.url;
+      const a = url.indexOf( '_' ) + 1;
+      const b = url.indexOf( '.html' );
+      let search = url.substr( 0, b );
+      const date = url.substr(0, a - 1);
+
+      if (!date) window.location.href = `/404`;
+      search = search.substr( a, search.length );
+      console.log(search, date);
+      const api = `https://api.lacunalab.org/_/items/events?filter[start_date][contains]=${date}&fields=*,location.locations_id.*,cover.*,tags.event_tags_id.*,internal_participants.directus_users_id.*`;
+      axios.get( api ).then( res => {
+        window.location.href = `/events/${res.data.data[0].url}`;
+      }).catch( (err) => {
+
+        window.location.href = `/404`;
+      });
+    }
+  },
   mounted() {
-    console.log('ADDRESSS', this.item.location)
+    console.log('M Event', this.item)
   }
 }
 </script>
