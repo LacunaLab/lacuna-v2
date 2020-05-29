@@ -9,7 +9,7 @@
 				h2.mt1.f3( itemprop="name" ): nuxt-link( v-bind:to="`/events/${event.url}`" itemprop="url" ) 
 					span {{event.title}}
 				p.mtb1.bolder
-					span.date( itemprop="startDate" ) {{$moment(event.start_date).format('ddd D MMM Y')}}  
+					span.date( itemprop="startDate" :content="$moment(item.start_date).toISOString()"  ) {{$moment(event.start_date).format('ddd D MMM Y')}}  
 					span.time( itemprop="doorTime" ) {{ $moment(event.start_date).format('HH:mm') }}
 				.event-description.f2.clamp4 {{event.short_description}}
 				.tags.mb4.mt1

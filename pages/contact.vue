@@ -12,8 +12,8 @@
 					a( :href="data.identity.default_email" ) {{data.identity.default_email}}
 					span , or on  
 					span {{data.identity.telephone}}.
-				h2.mb1.f3 Write us a message
-				contact-form( href="https://mailer.autr.tv" :to="data.identity.default_email" :beforeSend="beforeSend" ) 
+				//- h2.mb1.f3 Write us a message
+				//- contact-form( href="https://mailer.autr.tv" :to="data.identity.default_email" :beforeSend="beforeSend" ) 
 					field( :data="dropdown" )
 				
 		

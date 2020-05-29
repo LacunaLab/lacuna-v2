@@ -8,7 +8,13 @@ span.image-wrapper( v-bind:class="classes" :style="{paddingTop: paddingTop}" )
 	span.image.low( v-if=" file && status >= 0" )
 		img( ref="low" :title="title" :alt="title"  @load="onLoadLow()" :src="lowUrl" v-bind:style="{filter: blur}" )
 	span.image.high( v-if="file && status > 0" )
-		img( ref="high" :title="title" :alt="title" @load="onLoadHigh()" :src="highUrl" )
+		img( 
+			ref="high" 
+			:title="title" 
+			:alt="title" 
+			@load="onLoadHigh()" 
+			:src="highUrl" )
+	link(v-if="file" :href="highUrl" itemprop="image")
 </template>
 
 <script>
